@@ -1,20 +1,26 @@
-# ☕ Wamokech - Modern Coffee Shop POS System
+# ☕ Wamokech - Coffee Shop POS
 
-## 📖 About the Project
-Wamokech is a complete, modern, and easy-to-use Point of Sale (POS) application designed specifically to manage coffee shop operations. It was developed as an end-of-studies project for a Computer Technician diploma. It replaces traditional cash registers with a fast, responsive web interface that handles everything from taking orders to tracking inventory. 
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=flat&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=flat&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=flat&logo=javascript&logoColor=%23F7DF1E)
 
-## ✨ Key Features
-* **Secure Staff Authentication:** Each employee has their own account to log in securely, keeping shop data protected.
-* **Real-Time Dashboard:** Provides an instant overview of the day's activity, including total daily sales, average order value, and the most popular items.
-* **Fast Order Processing:** An intuitive, visually-driven menu interface allows staff to add items with a single click, automatically updating the bill in real-time.
-* **Flexible Payments & Receipts:** Supports both cash and card payments, automatically calculates change due, allows for custom discounts, and generates professional receipts that can be printed or downloaded.
-* **Inventory Management:** Tracks stock levels for crucial ingredients (like robusta and arabica coffee beans) and alerts staff when supplies are running low to prevent stockouts.
-* **Customer Loyalty Tracking:** Saves customer profiles and remembers their purchase history, allowing the shop to track total spending for regular visitors.
+## 📖 Overview
+Wamokech is a responsive, browser-based Point of Sale (POS) system engineered specifically for coffee shop environments. Developed as a capstone project for the Technicien Spécialisé en Développement Informatique program, this application modernizes daily operations by delivering a lightweight, intuitive, and fast transaction interface.
 
-## 💻 Technologies Used
-* **HTML5 & CSS3:** For a responsive, accessible, and modern user interface (inspired by Stripe/Figma standards).
-* **JavaScript:** The core engine handling all application logic, data processing, and user interactivity.
-* **Local Storage:** Enables offline mode and fast data persistence directly in the browser without needing an external database.
+## ✨ System Architecture & Features
+* **State Management:** Utilizes the Web Storage API (Local Storage) for persistent, client-side data management, enabling offline capabilities.
+* **Authentication Module:** Secure session handling for individual staff members to maintain operational integrity.
+* **Real-Time Analytics:** Dynamic dashboard rendering daily revenue, average transaction value, and top-selling SKUs.
+* **Dynamic Inventory Control:** Automated stock level tracking (e.g., Robusta and Arabica beans) with low-stock threshold alerts.
+* **Transaction Processing:** Comprehensive cart logic supporting cash/card payments, automated change calculation, custom discount application, and professional receipt generation.
+* **Customer Relationship Management (CRM):** Purchase history tracking to monitor the lifetime value and loyalty of regular patrons.
 
-## 🚀 Future Perspectives
-The next major step for Wamokech is to connect the system to the internet, allowing it to synchronize data across multiple cash registers simultaneously.
+## 🚀 Getting Started
+
+### Prerequisites
+As a purely client-side application, no backend runtime environment is required. The system runs entirely in the browser.
+
+### Installation & Local Setup
+1. Clone the repository to your local machine:
+   ```bash
+   git clone [https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git)
