@@ -1,32 +1,31 @@
-# ☕ Wamokech - Système POS (Coffee Shop POS)
+# ☕ Wamokech - Coffee Shop POS System
 
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=flat&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=flat&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=flat&logo=javascript&logoColor=%23F7DF1E)
 
-## 📖 À propos du projet (Overview)
-Wamokech est une application web de Point de Vente (POS) développée pour la gestion complète d'un café. Entièrement construite avec HTML, CSS et JavaScript , elle fonctionne de manière autonome dans le navigateur sans nécessiter de backend externe, grâce à une utilisation avancée de l'API Web Storage.
+## 📖 Overview
+Wamokech is a comprehensive, web-based Point of Sale (POS) application built specifically for complete coffee shop management. **It was developed as an end-of-studies project for a IT Technician diploma.** Built entirely with HTML, CSS, and  JavaScript, it functions independently in the browser without a backend by utilizing the Web Storage API.
 
-## 🔑 Accès Démo (Demo Access)
-Pour tester l'application, l'authentification est requise. Utilisez les identifiants codés en dur :
-* **Nom d'utilisateur :** `chakir`
-* **Mot de passe :** `123`
+## 🔑 Demo Access
+To test the application, authentication is required. Use the hardcoded credentials:
+* **Username:** `chakir`
+* **Password:** `123`
 
-## ✨ Fonctionnalités Principales (Key Features)
-* **Tableau de Bord Dynamique :** Suivi en temps réel des ventes du jour (en MAD), de la valeur moyenne des commandes, et de l'article le plus populaire.
-* **Caisse et Paiement :** Gestion des paiements en espèces (avec calcul automatique de la monnaie à rendre) ou par carte. Permet l'application de remises (en % ou montant fixe) et la gestion des commandes sur place (tables) ou à emporter.
-* **Reçus et Factures :** Génération automatique de reçus avec options d'impression (`window.print()`) et de téléchargement (.txt). Exportation de l'historique complet des factures au format CSV.
-* **Gestion d'Inventaire :** Suivi des stocks avec alertes automatiques lorsque les articles (ex: Grains de café, Lait, Gobelets) atteignent leur seuil critique.
-* **Base de Données Clients :** Enregistrement des clients fidèles avec suivi automatique de leur historique de commandes et du total dépensé.
-* **Menu CRUD :** Interface d'administration pour ajouter, modifier ou supprimer des articles du menu avec prise en charge des images encodées en base64 via `FileReader`.
+## ✨ Key Features
+* **Dynamic Dashboard:** Real-time tracking of daily sales (in MAD), average order value, and most popular menu items.
+* **Checkout & Payments:** Handles cash payments (with automated change calculation) and card transactions. Supports custom discounts (% or fixed amount) and tracks dine-in (table selection) versus takeaway orders.
+* **Receipts & Invoicing:** Automatically generates dynamic receipts with options to print (`window.print()`) or download as a `.txt` file. Includes a CSV export feature for the complete billing history using JavaScript `Blob` objects.
+* **Inventory Management:** Tracks stock levels for raw ingredients (e.g., Coffee beans, Milk, Cups) and triggers automated low-stock warnings based on custom thresholds.
+* **Customer Database (CRM):** Registers loyal customers and automatically tracks their lifetime order history and total amount spent.
+* **Menu CRUD Operations:** Admin interface to safely add, edit, or remove menu items, supporting base64 image encoding via `FileReader`.
 
-## 💻 Architecture Technique (Tech Stack)
-* **Interface (UI) :** HTML5, CSS3, et icônes FontAwesome pour une expérience utilisateur moderne et responsive.
-* **Logique Métier :** JavaScript Vanilla gérant le panier, les calculs de taxes/remises, et le filtrage dynamique.
-* **Persistance des Données :** Utilisation de `localStorage` pour sauvegarder l'historique des commandes, l'inventaire, les clients et les articles du menu entre les sessions.
-* **Exportation de données :** Génération de fichiers CSV et de reçus texte à la volée via des objets JavaScript `Blob`.
+## 💻 Tech Stack
+* **Frontend:** HTML5, CSS3, and FontAwesome icons for a modern, responsive user interface.
+* **Business Logic:** Vanilla JavaScript handling cart state, tax/discount math, filtering, and dynamic DOM updates.
+* **Data Persistence:** Utilizes `localStorage` to securely save order history, inventory, customer data, and custom menu items across browser sessions.
 
-## 🚀 Installation (Getting Started)
-L'application s'exécute entièrement côté client.
-1. Clonez ce dépôt sur votre machine locale.
-2. Ouvrez le fichier `index.html` dans n'importe quel navigateur web moderne.
+## 🚀 Getting Started
+Because this application runs entirely client-side, no server setup is required.
+1. Clone this repository to your local machine.
+2. Open the `index.html` file directly in any modern web browser.
