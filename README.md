@@ -5,7 +5,7 @@
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=flat&logo=javascript&logoColor=%23F7DF1E)
 
 ## 📖 À propos du projet (Overview)
-Wamokech est une application web de Point de Vente (POS) développée pour la gestion complète d'un café. Entièrement construite avec HTML, CSS et JavaScript Vanilla, elle fonctionne de manière autonome dans le navigateur sans nécessiter de backend externe, grâce à une utilisation avancée de l'API Web Storage.
+Wamokech est une application web de Point de Vente (POS) développée pour la gestion complète d'un café. Entièrement construite avec HTML, CSS et JavaScript , elle fonctionne de manière autonome dans le navigateur sans nécessiter de backend externe, grâce à une utilisation avancée de l'API Web Storage.
 
 ## 🔑 Accès Démo (Demo Access)
 Pour tester l'application, l'authentification est requise. Utilisez les identifiants codés en dur :
