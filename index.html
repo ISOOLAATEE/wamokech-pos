@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wamokech Coffee Shop - Système POS</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="theme-wamokech">
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <div class="login-header">
+                <div class="logo">
+                    <i class="fas fa-coffee"></i>
+                    <h1>Wamokech Coffee Shop</h1>
+                </div>
+                <p>Système POS Moderne</p>
+            </div>
+            
+            <div class="login-form">
+                <h2>Connexion du Personnel</h2>
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label for="username">Nom d'utilisateur</label>
+                        <input type="text" id="username" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="password">Mot de passe</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    
+                    <button type="submit" class="login-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Connexion
+                    </button>
+                </form>
+                
+                <div id="loginError" class="error-message" style="display: none;">
+                    Nom d'utilisateur ou mot de passe invalide. Veuillez réessayer.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="posSystem" class="pos-system" style="display: none;">
+        <div class="header">
+            <div class="header-left">
+                <div class="logo">
+                    <i class="fas fa-coffee"></i>
+                    <span>Wamokech</span>
+                </div>
+            </div>
+            <div class="header-center">
+                <nav class="main-nav">
+                    <button class="nav-btn active" data-view="dashboard">
+                        <i class="fas fa-th-large"></i>
+                        Tableau de Bord
+                    </button>
+                    <button class="nav-btn" data-view="menu">
+                        <i class="fas fa-coffee"></i>
+                        Menu
+                    </button>
+                    <button class="nav-btn" data-view="inventory">
+                        <i class="fas fa-boxes"></i>
+                        Inventaire
+                    </button>
+                    <button class="nav-btn" data-view="customers">
+                        <i class="fas fa-users"></i>
+                        Clients
+                    </button>
+                    <button class="nav-btn" data-view="bills">
+                        <i class="fas fa-receipt"></i>
+                        Factures
+                    </button>
+                </nav>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <span id="currentUser">Bienvenue !</span>
+                    <button id="clearDashboard" class="clear-btn">
+                        <i class="fas fa-cart-arrow-down"></i>
+                        Vider Panier
+                    </button>
+                    <button id="clearActivityBtn" class="clear-btn">
+                        <i class="fas fa-eraser"></i>
+                        Effacer Activité
+                    </button>
+                    <button id="clearHistoryBtn" class="clear-btn">
+                        <i class="fas fa-scroll"></i>
+                        Effacer Historique
+                    </button>
+                    <button id="logoutBtn" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Déconnexion
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div id="dashboardView" class="view-content active">
+                <div class="dashboard-layout">
+                    <div class="order-list-section">
+                        <div class="section-header">
+                            <h3>Liste des Commandes</h3>
+                            <button id="seeAllOrders" class="see-all-btn">Voir Tout</button>
+                        </div>
+                        <div id="orderList" class="order-list">
+                            </div>
+                    </div>
+
+                    <div class="stats-section">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h4>Ventes du Jour</h4>
+                                    <p id="todaySales">0.00 MAD</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-file-invoice-dollar"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h4>Valeur Moy. Commande</h4>
+                                    <p id="avgOrderValue">0.00 MAD</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h4>Commandes Totales</h4>
+                                    <p id="totalOrders">0</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h4>Article le Plus Populaire</h4>
+                                    <p id="popularItem" style="font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">N/A</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-coffee"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h4>Articles du Menu</h4>
+                                    <p id="menuItemCount">0</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h4>Clients</h4>
+                                    <p id="customerCount">0</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="activity-section">
+                        <div class="section-header">
+                            <h3>Activité Récente</h3>
+                        </div>
+                        <div id="recentActivity" class="activity-list">
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="menuView" class="view-content">
+                <div class="pos-layout">
+                    <div class="menu-section">
+                        <div class="horizontal-order-list-container">
+                            <h3>Commandes en Préparation</h3>
+                            <div id="horizontalOrderList" class="horizontal-order-list">
+                                </div>
+                        </div>
+                        <div class="menu-header">
+                            <h2>Menu</h2>
+                            <div class="menu-actions">
+                                <p>Affichage de <span id="menuItemsShowing">0</span> articles</p>
+                                <button id="addMenuItem" class="add-menu-btn">
+                                    <i class="fas fa-plus"></i>
+                                    Ajouter un Article
+                                </button>
+                            </div>
+                        </div>
+                        <div class="category-tabs" id="categoryTabs">
+                            </div>
+                        <div class="menu-grid" id="menuGrid">
+                            </div>
+                    </div>
+
+                    <div class="order-summary-section">
+                        <div class="order-summary-card">
+                            <div class="order-summary-header">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Résumé de la Commande</span>
+                                <span id="orderItemCount" class="item-count">0 Article</span>
+                            </div>
+                            
+                            <div id="orderSummaryItems" class="order-summary-items">
+                                </div>
+                            
+                            <div class="order-summary-total">
+                                <div class="subtotal-row">
+                                    <span>Sous-total:</span>
+                                    <span id="subtotalAmount">0.00 MAD</span>
+                                </div>
+                                <div class="total-row">
+                                    <span>Total:</span>
+                                    <span id="totalAmount">0.00 MAD</span>
+                                </div>
+                            </div>
+                            
+                            <div class="order-summary-actions">
+                                <button id="clearCartBtn" class="clear-cart-btn">Vider le Panier</button>
+                                <button id="checkoutBtn" class="checkout-btn">
+                                    <i class="fas fa-credit-card"></i>
+                                    Paiement
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="inventoryView" class="view-content">
+                <div class="inventory-layout">
+                    <div class="inventory-header">
+                        <h2>Gestion de l'Inventaire</h2>
+                        <button id="addInventoryItem" class="add-btn">
+                            <i class="fas fa-plus"></i>
+                            Ajouter un Article
+                        </button>
+                    </div>
+                    <div class="inventory-grid" id="inventoryGrid">
+                        </div>
+                </div>
+            </div>
+
+            <div id="customersView" class="view-content">
+                <div class="customers-layout">
+                    <div class="customers-header">
+                        <h2>Gestion des Clients</h2>
+                        <button id="addCustomer" class="add-btn">
+                            <i class="fas fa-plus"></i>
+                            Ajouter un Client
+                        </button>
+                    </div>
+                    <div class="customers-grid" id="customersGrid">
+                        </div>
+                </div>
+            </div>
+
+            <div id="billsView" class="view-content">
+                <div class="bills-layout">
+                    <div class="bills-header">
+                        <h2>Factures & Reçus</h2>
+                        <div class="bills-actions">
+                            <select id="orderStatusFilter" class="status-filter">
+                                <option value="all">Toutes les commandes</option>
+                                <option value="pending">En attente</option>
+                                <option value="completed">Terminée</option>
+                                <option value="canceled">Annulée</option>
+                            </select>
+                            <button id="exportBills" class="export-btn">
+                                <i class="fas fa-download"></i>
+                                Exporter
+                            </button>
+                            <button id="clearAllBillsBtn" class="clear-btn">
+                                <i class="fas fa-trash-alt"></i>
+                                Tout Supprimer
+                            </button>
+                        </div>
+                    </div>
+                    <div class="bills-grid" id="billsGrid">
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="paymentModal" class="modal">
+        <div class="modal-content payment-modal">
+            <div class="payment-header">
+                <h2>Traitement du Paiement</h2>
+                <button class="close-btn" id="closePayment">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="payment-body">
+                <div class="payment-left">
+                    <h3>Résumé de la Commande</h3>
+                    <div id="paymentOrderItems" class="payment-order-items">
+                        </div>
+                    <div class="payment-total">
+                        <span>Total:</span>
+                        <span id="paymentTotalAmount">0.00 MAD</span>
+                    </div>
+                </div>
+                
+                <div class="payment-right">
+                    <h3>Méthode de Paiement</h3>
+                    <div class="payment-methods">
+                        <button class="payment-method active" data-method="cash">
+                            <i class="fas fa-money-bill-wave"></i>
+                            Espèces
+                        </button>
+                        <button class="payment-method" data-method="card">
+                            <i class="fas fa-credit-card"></i>
+                            Carte
+                        </button>
+                    </div>
+                    
+                    <div id="cashSection" class="payment-field-group">
+                        <div class="payment-field">
+                            <label>Montant reçu en espèces</label>
+                            <input type="number" id="cashAmount" step="0.01" placeholder="0.00">
+                        </div>
+                        
+                        <div id="changeDisplay" class="change-display" style="display: none;">
+                            <span class="change-label">À rendre :</span>
+                            <span id="changeAmount" class="change-amount">0.00 MAD</span>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-field">
+                        <label>Remise (MAD ou %)</label>
+                        <input type="text" id="discountAmount" placeholder="Ex: 5 ou 10%">
+                    </div>
+                    
+                    <div class="payment-field">
+                        <label>Sélectionner une table (optionnel)</label>
+                        <select id="tableSelect">
+                            <option value="">Sélectionner une table</option>
+                            <option value="1">Table 1</option>
+                            <option value="2">Table 2</option>
+                            <option value="3">Table 3</option>
+                            <option value="4">Table 4</option>
+                            <option value="5">Table 5</option>
+                        </select>
+                    </div>
+                    
+                    <div class="payment-field">
+                        <label>Client</label>
+                        <select id="customerSelect">
+                            <option value="">Client de passage</option>
+                             <option value="custom">Autre (préciser)...</option>
+                        </select>
+                    </div>
+                    <div class="payment-field" id="customCustomerWrapper" style="display: none;">
+                        <label>Nom du client personnalisé</label>
+                        <input type="text" id="customCustomerName" placeholder="Entrer le nom du client">
+                    </div>
+                    
+                    <div class="order-type">
+                        <label><input type="radio" name="orderType" value="dine-in" checked> Sur Place</label>
+                        <label><input type="radio" name="orderType" value="takeaway"> À Emporter</label>
+                    </div>
+
+                    <div class="payment-field">
+                        <label>Statut de la Commande</label>
+                        <select id="orderStatus">
+                            <option value="pending">En attente</option>
+                            <option value="completed" selected>Terminée</option>
+                            <option value="canceled">Annulée</option>
+                        </select>
+                    </div>
+                    
+                    <button id="completePaymentBtn" class="complete-payment-btn">
+                        Finaliser le Paiement
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="receiptModal" class="modal">
+        <div class="modal-content receipt-modal">
+            <div class="receipt-header">
+                <h2>Reçu</h2>
+                <button class="close-btn" id="closeReceipt">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="receipt-body">
+                <div id="receiptContent" class="receipt-content">
+                    </div>
+                <div class="receipt-actions">
+                    <button id="printReceipt" class="receipt-btn print-btn">
+                        <i class="fas fa-print"></i>
+                        Imprimer
+                    </button>
+                    <button id="downloadReceipt" class="receipt-btn download-btn">
+                        <i class="fas fa-download"></i>
+                        Télécharger
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="addMenuItemModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="menuItemModalTitle">Ajouter un Article au Menu</h2>
+                <button class="close-btn" id="closeAddMenuItem">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addMenuItemForm">
+                    <div class="input-group">
+                        <label for="menuItemName">Nom de l'article</label>
+                        <input type="text" id="menuItemName" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="menuItemCategory">Catégorie</label>
+                        <select id="menuItemCategory" required>
+                            <option value="">Sélectionner une catégorie</option>
+                            </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="menuItemPrice">Prix</label>
+                        <input type="number" id="menuItemPrice" step="0.01" min="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="menuItemImage">Image de l'article</label>
+                        <input type="file" id="menuItemImage" accept="image/*">
+                        <div id="imagePreview" class="image-preview" style="display: none;">
+                            <img id="previewImg" src="" alt="Aperçu">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="menuItemDescription">Description</label>
+                        <textarea id="menuItemDescription" rows="3" required></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="menuItemRating">Note (1-5)</label>
+                        <input type="number" id="menuItemRating" min="1" max="5" step="0.1" value="4.0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="menuItemTime">Temps de prép.</label>
+                        <input type="text" id="menuItemTime" placeholder="ex: 5 min" required>
+                    </div>
+                    <button type="submit" class="add-btn" id="submitMenuItemBtn">Ajouter l'Article</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="orderStatusModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Mettre à jour le Statut</h2>
+                <button class="close-btn" id="closeOrderStatus">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="order-status-info">
+                    <h3 id="statusOrderNumber">Commande #</h3>
+                    <p id="statusOrderDetails"></p>
+                </div>
+                <div class="status-options">
+                    <label class="status-option pending">
+                        <input type="radio" name="statusUpdate" value="pending">
+                        <div class="status-card">
+                            <i class="fas fa-clock"></i>
+                            <h4>En attente</h4>
+                            <p>La commande est en préparation</p>
+                        </div>
+                    </label>
+                    <label class="status-option completed">
+                        <input type="radio" name="statusUpdate" value="completed">
+                        <div class="status-card">
+                            <i class="fas fa-check-circle"></i>
+                            <h4>Terminée</h4>
+                            <p>La commande est prête/livrée</p>
+                        </div>
+                    </label>
+                    <label class="status-option canceled">
+                        <input type="radio" name="statusUpdate" value="canceled">
+                        <div class="status-card">
+                            <i class="fas fa-times-circle"></i>
+                            <h4>Annulée</h4>
+                            <p>La commande a été annulée</p>
+                        </div>
+                    </label>
+                </div>
+                <button id="updateOrderStatus" class="update-status-btn">Mettre à jour</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="addInventoryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Ajouter à l'Inventaire</h2>
+                <button class="close-btn" id="closeAddInventory">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addInventoryForm">
+                    <div class="input-group">
+                        <label for="inventoryName">Nom de l'article</label>
+                        <input type="text" id="inventoryName" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="inventoryQuantity">Quantité</label>
+                        <input type="number" id="inventoryQuantity" min="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="inventoryUnit">Unité (ex: kg, L, pcs)</label>
+                        <input type="text" id="inventoryUnit" placeholder="kg, L, pcs..." required>
+                    </div>
+                    <div class="input-group">
+                        <label for="inventoryPrice">Prix d'achat unitaire</label>
+                        <input type="number" id="inventoryPrice" step="0.01" min="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="inventoryThreshold">Seuil de stock bas</label>
+                        <input type="number" id="inventoryThreshold" min="0" required>
+                    </div>
+                    <button type="submit" class="add-btn">Ajouter</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="addCustomerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="customerModalTitle">Ajouter un Client</h2>
+                <button class="close-btn" id="closeAddCustomer">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addCustomerForm">
+                    <div class="input-group">
+                        <label for="customerName">Nom du Client</label>
+                        <input type="text" id="customerName" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="customerPhone">Téléphone</label>
+                        <input type="tel" id="customerPhone">
+                    </div>
+                    <div class="input-group">
+                        <label for="customerEmail">Email</label>
+                        <input type="email" id="customerEmail">
+                    </div>
+                    <button type="submit" class="add-btn" id="submitCustomerBtn">Ajouter Client</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
